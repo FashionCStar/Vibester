@@ -5,14 +5,14 @@ import NavigationService from '../../NavigationService'
 export default class Footer extends Component { 
     render() {
         return (
-        <View style={{backgroundColor:'#000', flexDirection:'row', paddingHorizontal:10, paddingVertical:20}}>
+        <View style={{backgroundColor:'#000', flexDirection:'row', paddingHorizontal:8, paddingVertical:8,}}>
             <View style={{flex:1,}}>
-                <TouchableOpacity activeOpacity={0.7} style={{ marginRight:'auto'}}>
+                <TouchableOpacity activeOpacity={0.7} style={{ marginRight:'auto'}} onPress={()=>{NavigationService.navigate("Home")}}>
                     <Image source={require('../../assets/images/footer_home.png')} style={{width:29, height:29,}} resizeMode={"contain"} />
                 </TouchableOpacity>
             </View>
             <View style={{flex:1}}>
-                <TouchableOpacity activeOpacity={0.7} style={{ marginRight:'auto'}}>
+                <TouchableOpacity activeOpacity={0.7} style={{ marginRight:'auto'}} onPress={()=>{NavigationService.navigate("Profile")}}>
                     <Image source={require('../../assets/images/footer_profile.png')} style={{width:29, height:29,}} resizeMode={"contain"} />
                 </TouchableOpacity>
             </View>
