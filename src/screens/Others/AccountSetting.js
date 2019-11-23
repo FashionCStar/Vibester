@@ -18,12 +18,18 @@ export default class AccountSetting extends Component {
       return (
         <View style={{flex:1, backgroundColor:'#000'}}>
           <SafeAreaView style={{flex:1, flexDirection:'column',}}>
-            <Text style={{color:'#fff', fontSize:17,marginTop:10, alignSelf:'center'}}> Account & Setting </Text>
-            <TouchableOpacity activeOpacity={0.8} style={{marginTop:10, marginLeft:10}} onPress={()=>{
-                this.props.navigation.goBack(null);
-            }}>
-              <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
-            </TouchableOpacity>
+            <View style={{flexDirection:'row', width:'100%',marginTop:10}}>
+              <View style={{width:50}}>
+              <TouchableOpacity activeOpacity={0.8} style={{marginLeft:10}} onPress={()=>{
+                  this.props.navigation.goBack(null);
+              }}>
+                <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
+              </TouchableOpacity>
+              </View>
+              <Text style={{color:'#fff', fontSize:17, flex:1, textAlign:'center'}}> Account & Setting </Text>
+              <View style={{width:50}}></View>
+            </View>
+           
             <View style={{flex:1, width:'100%', paddingHorizontal:30, paddingVertical:10}}>
               <View style={{flexDirection:'row', marginTop:10, alignItems:'center', }}>
                 <TouchableOpacity activeOpacity={0.7}>

@@ -19,11 +19,14 @@ import Register from './src/screens/Register'
 import Home from './src/screens/Home'
 import Profile from './src/screens/Profile'
 import Events from './src/screens/Events'
-import AddItemScreen from './src/screens/settings/AddItemScreen'
-import AddVenueScreen from './src/screens/settings/AddVenueScreen'
-import AccountSetting from './src/screens/settings/AccountSetting'
-import StorySetting from './src/screens/settings/StorySetting'
-import StoryHideList from './src/screens/settings/StoryHideList'
+import AddItemScreen from './src/screens/Others/AddItemScreen'
+import AddVenueScreen from './src/screens/Others/AddVenueScreen'
+import AccountSetting from './src/screens/Others/AccountSetting'
+import StorySetting from './src/screens/Others/StorySetting'
+import StoryHideList from './src/screens/Others/StoryHideList'
+import Follow from './src/screens/Others/Follow'
+import Reading from './src/screens/Reading'
+import Notifications from './src/screens/Notifications'
 
 console.disableYellowBox = true;
 const ActivityProject = createStackNavigator(
@@ -38,6 +41,9 @@ const ActivityProject = createStackNavigator(
     StorySetting: { screen: StorySetting,navigationOptions: {header: null,}, },
     StoryHideList: { screen: StoryHideList,navigationOptions: {header: null,}, },
     Events: { screen: Events,navigationOptions: {header: null,}, },
+    Follow: { screen: Follow,navigationOptions: {header: null,}, },
+    Reading: { screen: Reading,navigationOptions: {header: null,}, },
+    Notifications: { screen: Notifications,navigationOptions: {header: null,}, },
   },
   {
     initialRouteName: "Login",

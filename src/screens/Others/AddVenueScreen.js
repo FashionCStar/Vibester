@@ -65,7 +65,7 @@ export default class AddVenueScreen extends Component {
             }}>
               <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
             </TouchableOpacity>
-            <View style={{flex:1, width:'100%', paddingHorizontal:30, paddingVertical:10}}>
+            <ScrollView style={{flex:1, marginHorizontal:30, marginVertical:10, flexDirection:'column'}}>
               <TextField
                 ref={c=>this._name=c}
                 autoCorrect={false}      
@@ -137,7 +137,7 @@ export default class AddVenueScreen extends Component {
                   <Image source={require('../../assets/images/signup.png')} style={{width:35, height:35}} resizeMode={"contain"} />
                 </TouchableOpacity>
               </View>
-            </View>
+            </ScrollView>
           </SafeAreaView>
         </View>
       );

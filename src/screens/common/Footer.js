@@ -20,12 +20,12 @@ export default class Footer extends Component {
                 <Image source={require('../../assets/images/footer_camera.png')} style={{width:29, height:29,}} resizeMode={"contain"} />
             </TouchableOpacity>
             <View style={{flex:1}}>
-                <TouchableOpacity activeOpacity={0.7} style={{ marginLeft:'auto'}}>
+                <TouchableOpacity activeOpacity={0.7} style={{ marginLeft:'auto'}}  onPress={()=>{NavigationService.navigate("Reading")}}>
                     <Image source={require('../../assets/images/footer_location.png')} style={{width:29, height:29,}} resizeMode={"contain"} />
                 </TouchableOpacity>
             </View>
             <View style={{flex:1}}>
-                <TouchableOpacity activeOpacity={0.7} style={{ marginLeft:'auto'}}>
+                <TouchableOpacity activeOpacity={0.7} style={{ marginLeft:'auto'}} onPress={()=>{NavigationService.navigate("Notifications")}}>
                     <Image source={require('../../assets/images/footer_chatroom.png')} style={{width:29, height:29,}} resizeMode={"contain"} />
                     <View style={{width:15, height:15, backgroundColor:'#e20f00', alignItem:'center', justifyContent:'center', alignContent:'center', position:'absolute', top:0, right:-4, borderRadius:7}}>
                         <Text style={{color:'#fff', fontSize:11, textAlign:'center'}}>4</Text>

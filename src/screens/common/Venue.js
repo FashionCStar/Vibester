@@ -17,7 +17,7 @@ export default class Venue extends Component {
     this._menu.hide();
   }
   showMenu = () => {
-      this._menu.show(this._menubtn.current, stickTo = Position.BOTTOM_CENTER);
+      this._menu.show(this._menubtn.current, Position.BOTTOM_CENTER);
   }
   render() {
     return (
