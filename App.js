@@ -27,6 +27,9 @@ import StoryHideList from './src/screens/Others/StoryHideList'
 import Follow from './src/screens/Others/Follow'
 import Reading from './src/screens/Reading'
 import Notifications from './src/screens/Notifications'
+import SnapPage from './src/screens/Notifications/SnapPage'
+import Chat from './src/screens/Notifications/Chat'
+import SelectProfiles from './src/screens/Others/SelectProfiles'
 
 console.disableYellowBox = true;
 const ActivityProject = createStackNavigator(
@@ -44,6 +47,9 @@ const ActivityProject = createStackNavigator(
     Follow: { screen: Follow,navigationOptions: {header: null,}, },
     Reading: { screen: Reading,navigationOptions: {header: null,}, },
     Notifications: { screen: Notifications,navigationOptions: {header: null,}, },
+    SelectProfiles: { screen: SelectProfiles,navigationOptions: {header: null,}, },
+    SnapPage: { screen: SnapPage,navigationOptions: {header: null,}, },
+    Chat: { screen: Chat,navigationOptions: {header: null,}, },
   },
   {
     initialRouteName: "Login",

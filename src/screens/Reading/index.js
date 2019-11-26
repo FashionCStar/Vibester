@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { TextInput } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import Search from './Search';
+import Modal from "react-native-modal";
 
 
 const width = Dimensions.get("window").width
@@ -34,8 +35,7 @@ export default class Reading extends Component {
 
       return (
         <View style={{flex:1, backgroundColor:'#000', flexDirection:'column'}}>
-          {this.state.largeView&&
-          <View style={{backgroundColor:'rgba(0,0,0,0.9)',position:'absolute',top:0,left:0,right:0,bottom:0, zIndex:20000}}>
+          <Modal backdropOpacity={0.9}  animationIn={"zoomIn"} animationOut={"zoomOut"} isVisible={this.state.largeView} style={{padding:0, width:'100%', position:'absolute', top:0,bottom:0,right:0, margin:0}}  >
             <View style={{width:'100%', marginTop:'auto', marginBottom:'auto', flexDirection:'column'}}>
               <View style={{width:'100%',flexDirection:'row', paddingHorizontal:30}}>
                 <Text style={{color:'#fff', fontSize:16}}>Events</Text>
@@ -53,7 +53,7 @@ export default class Reading extends Component {
                 <ReadingItem width={width/1.3} />
               </ScrollView>
             </View>
-          </View>}
+          </Modal>
           <SafeAreaView style={{flex:1, width:'100%'}}>
             <View style={{flexDirection:'row', width:'100%',marginTop:10}}>
               <View style={{width:50}}>

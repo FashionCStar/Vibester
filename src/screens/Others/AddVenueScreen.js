@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View,  SafeAreaView, ScrollView,StatusBar,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
+import {View,  SafeAreaView, ScrollView,Alert,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
 import NavigationService from '../../NavigationService'
 import { Icon, Item, Input } from 'native-base';
 const width = Dimensions.get("window").width
 import { TextField } from 'react-native-material-textfield';
 import { Dropdown } from 'react-native-material-dropdown';
-
+import CheckBox from 'react-native-check-box'
+import ImagePicker from 'react-native-image-picker';
 
 export default class AddVenueScreen extends Component { 
 
@@ -14,6 +15,8 @@ export default class AddVenueScreen extends Component {
     this.state={
       type:0,
       working_hour:0,
+      isChecked:false,
+      avatarSource:null,
     }
   }
 
@@ -60,12 +63,55 @@ export default class AddVenueScreen extends Component {
       return (
         <View style={{flex:1, backgroundColor:'#000'}}>
           <SafeAreaView style={{flex:1, flexDirection:'column'}}>
-            <TouchableOpacity activeOpacity={0.8} style={{marginTop:10, marginLeft:10}} onPress={()=>{
-                this.props.navigation.goBack(null);
-            }}>
-              <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
-            </TouchableOpacity>
-            <ScrollView style={{flex:1, marginHorizontal:30, marginVertical:10, flexDirection:'column'}}>
+            <View style={{flexDirection:'row', marginTop:10}}>
+              <TouchableOpacity activeOpacity={0.8} style={{marginLeft:10}} onPress={()=>{
+                  this.props.navigation.goBack(null);
+              }}>
+                <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
+              </TouchableOpacity> 
+              <TouchableOpacity style={{marginLeft:'auto',marginRight:10}}>                
+              <Text  style={{color:'#f28500', fontSize:15,}}>
+                Upload 
+                </Text>
+              </TouchableOpacity>           
+            </View>
+            <ScrollView style={{flex:1, marginHorizontal:30, marginTop:20, marginBottom:10, flexDirection:'column'}} showsVerticalScrollIndicator={false}>
+
+
+              <View style={{width:'100%', aspectRatio:1, backgroundColor:'#111', alignItems:'center', justifyContent:'center'}}>
+                <Image source={this.state.avatarSource}  style={{width:'100%', height:'100%'}} />
+                <View style={{flexDirection:'column', position:'absolute', alignItems:'center'}}>
+                  {this.state.avatarSource==null&&
+                  <Icon type={"FontAwesome"} name="image" style={{color:'#222', fontSize:50,}} />}
+                  <TouchableOpacity onPress={()=>{
+                      if(Platform.OS !="ios")
+                      {
+                        Alert.alert(
+                        '',
+                        'Select Image or Video',
+                        [
+                            {text: 'Image', onPress: () => {
+                              this.SelectCamera('image');
+                            }},
+                            {text: 'Video', onPress: () =>{
+                              this.SelectCamera('video');
+                            }},
+                          ],
+                        );
+                      }
+                      else
+                      {
+                        this.SelectCamera('mixed');
+                      }
+                  }}>
+                    <Text style={{color:'#fff', fontSize:12}}>Add Poster / Video</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={{color:'#fff', fontSize:12}}>Use Existing venue</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
               <TextField
                 ref={c=>this._name=c}
                 autoCorrect={false}      
@@ -74,10 +120,10 @@ export default class AddVenueScreen extends Component {
                 tintColor={"#fff"} 
                 autoCapitalize='none'
                 autoCorrect={false}
-                label={"Name of venue"}
+                label={"Name of the venue..."}
               />
               <Dropdown
-                label='Type of venue'
+                label='Type of venue...'
                 data={venue_type}
                 baseColor={"#8d8d8d"}
                 textColor={"#d4d7d9"}
@@ -100,7 +146,7 @@ export default class AddVenueScreen extends Component {
                 label={"Address.."}
               />
               <Dropdown
-                label='Working hours...'
+                label='Open hours...'
                 data={working_hours}
                 baseColor={"#8d8d8d"}
                 textColor={"#d4d7d9"}
@@ -123,24 +169,91 @@ export default class AddVenueScreen extends Component {
                 multiline={true}
                 label={"Brief description..."}
               />
-              <View style={{flexDirection:'row', marginTop:20, marginLeft:'auto', alignItems:'center'}}>
-                <Text style={{color:'#fff',}}>Add Poster / Video</Text>
-                <TouchableOpacity activeOpacity={0.7} style={{marginLeft:30, width:75, height:75,backgroundColor:'#262626', alignItems:'center', justifyContent:'center'}}>
-                  <Icon type={"FontAwesome"} name="image" style={{color:'#8d8d8d'}} />
-                </TouchableOpacity>
+
+              <View style={{flexDirection:'row', marginTop:20}}>
+                <CheckBox
+                  style={{flex:1,height:30,}}
+                  leftTextStyle={{color:'#fff'}}
+                  isChecked={this.state.isChecked}
+                  checkedCheckBoxColor={"#fff"}
+                  uncheckedCheckBoxColor={"#fff"}
+                  onClick={()=>{
+                    NavigationService.navigate("SelectProfiles");
+                    this.setState({
+                        isChecked:!this.state.isChecked
+                    })
+                  }}
+                  leftText={"Share with friends only"}
+                />
+                <CheckBox
+                  style={{flex:1,height:30, marginLeft:10}}
+                  leftTextStyle={{color:'#fff'}}
+                  isChecked={!this.state.isChecked}
+                  checkedCheckBoxColor={"#fff"}
+                  uncheckedCheckBoxColor={"#fff"}
+                  onClick={()=>{
+                    this.setState({
+                        isChecked:!this.state.isChecked
+                    })
+                  }}
+                  leftText={"Share as public venue"}
+                />                
               </View>
-              <View style={{flexDirection:'row', marginLeft:'auto', marginTop:20}}>
-                <Text  style={{color:'#f28500', fontSize:15, textAlignVertical:'center'}}>
-                Upload venue 
-                </Text>
-                <TouchableOpacity activeOpacity={0.7}>
-                  <Image source={require('../../assets/images/signup.png')} style={{width:35, height:35}} resizeMode={"contain"} />
+              <View style={{flexDirection:'column'}}>
+                <TouchableOpacity onPress={()=>{
+                  NavigationService.navigate("SelectProfiles");
+                }}>
+                  <Text style={{color:'#fff', fontWeight:'bold'}}>Add admin + </Text>
                 </TouchableOpacity>
+                <Text style={{color:'#aaa',}}>Tom Holkstuf </Text>
+                <Text style={{color:'#aaa',}}>Adam Newman</Text>
+                <Text style={{color:'#aaa',}}>Lucy Tate</Text>
               </View>
             </ScrollView>
           </SafeAreaView>
         </View>
       );
     }
+
+  SelectCamera = (type) => {
+    const options = {
+      title: 'Select Poster / Video',
+      mediaType: type,
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = null;
+        if(response.type !=null)
+        {
+          source = { uri: response.uri };
+        }
+        else
+        {
+          // VideoThumbnail.get(this.path)
+          // .then((res) => {
+          //   console.log(res);
+          // })
+          // .catch((err) => {
+          //   console.log(err);
+          // });
+          source = { uri: response.uri };
+        }
+
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
+  }
   }
   

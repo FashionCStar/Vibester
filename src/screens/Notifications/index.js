@@ -33,16 +33,39 @@ export default class Notifications extends Component {
               <SwipeListView
                 data={DATA}
                 renderItem={ (item, rowMap) => (
-                  <TouchableOpacity style={{flexDirection:'row', backgroundColor:'#000', alignItems:'center',height:50, paddingHorizontal:20}} activeOpacity={0.8} onPress={()=>{
-                        NavigationService.navigate("Profile",{type:'2'})
-                      }}>
-                    <Image style={{width:30, height:30, borderRadius:20}} source={require('../../assets/images/avatar.png')} />
-                    <Text style={{fontSize:16, color:'#fff', marginLeft:10,  }}>Following name{item.index}</Text>   
+                  <TouchableOpacity style={{flexDirection:'row', backgroundColor:'#000', alignItems:'center',height:70, paddingHorizontal:20}} activeOpacity={0.8} onPress={()=>{
+                    NavigationService.navigate("Profile",{type:'2'})
+                  }}>
+                    <Image style={{width:40, height:40, borderRadius:25}} source={require('../../assets/images/avatar.png')} />
+
+                    <View style={{flexDirection:'row', marginLeft:30,flex:1}}>
+                      <View style={{flexDirection:'column'}}>
+                        <TouchableOpacity onPress={()=>{
+                          NavigationService.navigate("SnapPage")
+                        }}>
+                        <Text style={{fontSize:9, color:'#467fd7',}}>Following name{item.index}{"  "}
+                        <Icon type="FontAwesome" name="camera" style={{fontSize:9, color:'#467fd7',marginLeft:10}} />
+                        </Text>  
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                          NavigationService.navigate("Chat");
+                        }}>
+                        <Text style={{fontSize:16, color:'#fff',}}>Following name{item.index}</Text> 
+                        </TouchableOpacity>
+                        <Text style={{fontSize:9, color:'#467fd7',}}>View</Text>
+                      </View>
+                      <View style={{flexDirection:'column', marginLeft:'auto', marginRight:10}}>
+                        <Text style={{fontSize:9, color:'#fff',}}>12.37PM</Text>
+                        <View style={{width:18,height:18,borderRadius:10,backgroundColor:'#467fd7', alignItems:'center', justifyContent:'center', marginLeft:'auto'}}>
+                          <Text style={{fontSize:12, color:'#fff'}}>1</Text>
+                        </View>
+                      </View>
+                    </View>
                   </TouchableOpacity>
                 )}
                 
                 renderHiddenItem={ (data, rowMap) => (
-                  <View style={{flexDirection:'row',height:50, alignItems:'center', paddingLeft:10}}>
+                  <View style={{flexDirection:'row',height:70, alignItems:'center', paddingLeft:10}}>
                       <TouchableOpacity>
                         <Icon type={"MaterialIcons"} name="block"  style={{color:'#fff', fontSize:20}} />
                       </TouchableOpacity>
