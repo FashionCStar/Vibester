@@ -8,7 +8,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import CheckBox from 'react-native-check-box'
 import ImagePicker from 'react-native-image-picker';
 
-export default class AddVenueScreen extends Component { 
+export default class CreateEvent extends Component { 
 
   constructor (props) {
     super(props);
@@ -120,20 +120,7 @@ export default class AddVenueScreen extends Component {
                 tintColor={"#fff"} 
                 autoCapitalize='none'
                 autoCorrect={false}
-                label={"Name of the venue..."}
-              />
-              <Dropdown
-                label='Type of venue...'
-                data={venue_type}
-                baseColor={"#8d8d8d"}
-                textColor={"#d4d7d9"}
-                itemColor={"#000"}
-                selectedItemColor={"#555"}
-                labelExtractor={(item,index)=>{return item.name;}}
-                valueExtractor={(item,index)=>{return item.id;}}
-                onChangeText={(value, index)=>{
-                  this.setState({type:value});
-                }}
+                label={"Event Title ..."}
               />
               <TextField
                 ref={c=>this._address=c}
@@ -145,7 +132,7 @@ export default class AddVenueScreen extends Component {
                 autoCorrect={false}
                 label={"Address.."}
               />
-              <Dropdown
+               <Dropdown
                 label='Open hours...'
                 data={working_hours}
                 baseColor={"#8d8d8d"}
@@ -199,11 +186,11 @@ export default class AddVenueScreen extends Component {
                   leftText={"Share as public venue"}
                 />                
               </View>
-              <View style={{flexDirection:'column', marginVertical:10}}>
+              <View style={{flexDirection:'column',marginVertical:15,}}>
                 <TouchableOpacity onPress={()=>{
                   NavigationService.navigate("SelectProfiles");
                 }}>
-                  <Text style={{color:'#fff', fontWeight:'bold', marginVertical:5,}}>Add admin + </Text>
+                  <Text style={{color:'#fff', fontWeight:'bold'}}>Add admin + </Text>
                 </TouchableOpacity>
                 <View style={{flexDirection:'row', alignItems:'center', marginVertical:2}}>
                   <Image style={{width:20, height:20, borderRadius:20}} source={require('../../assets/images/avatar.png')} />

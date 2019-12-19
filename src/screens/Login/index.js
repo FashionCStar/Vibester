@@ -12,7 +12,7 @@ export default class Login extends Component {
             <View style={{flex:1, flexDirection:'column'}}>
               <View style={{flex:1}}></View>
               <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>                
-                <Image source={require('../../assets/images/logo.png')} style={{width:'100%', height:'70%'}} resizeMode={"contain"} />
+                <Image source={require('../../assets/images/logo.png')} style={{width:'100%', height:'30%'}} resizeMode={"contain"} />
                 <Text style={{color:'#717171', fontSize:22}} > Vibester </Text>
               </View>
             </View>

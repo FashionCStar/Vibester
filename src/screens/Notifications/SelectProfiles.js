@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View,  SafeAreaView, FlatList,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
+import {View,  SafeAreaView, StatusBar,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
 import NavigationService from '../../NavigationService'
 import { Icon, Item, Input } from 'native-base';
 const width = Dimensions.get("window").width
 import { Switch } from 'react-native-switch';
+import { FlatList } from 'react-native-gesture-handler';
 import { CheckBox } from 'react-native-elements'
 import { SearchBar } from 'react-native-elements';
 
@@ -29,7 +30,7 @@ export default class SelectProfiles extends Component {
               <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.8} style={{marginTop:10, marginLeft:'auto', marginRight:10}} onPress={()=>{
-                this.props.navigation.goBack(null);
+               
             }}>
               <Text style={{color:'#fff', fontSize:15}}>Done</Text>
             </TouchableOpacity>

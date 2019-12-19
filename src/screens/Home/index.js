@@ -23,16 +23,34 @@ export default class Home extends Component {
 
   _renderItem ({item, index}) {
     return (
-        <View style={{borderRadius:20,}}>
-          <Button transparent style={{width:'100%', height:'100%'}} onPress={()=>{
-            NavigationService.navigate("Events");
-          }}>
-          <Image source={require('../../assets/images/temp/image1.jpg')} style={{borderRadius:20, width:'100%', height:'100%'}} resizeMode={"contain"} />
-          </Button>
+      <View>
+        <TouchableOpacity activeOpacity={1} style={{flexDirection:'column', width:'100%', height:'100%'}} onPress={()=>{
+          NavigationService.navigate("Events");
+        }}>
+        <Text style={{color:'#fff', fontSize:13}}> Jess S </Text>
+        <View style={{flex:1, width:'90%',borderRadius:10}}>
+        <FitImage source={require('../../assets/images/temp/image1.jpg')} style={{borderRadius:10,overflow:'hidden'}} resizeMode={"cover"} />
         </View>
+        <Text style={{color:'#fff', fontSize:13, alignSelf:'flex-end'}}> 10k <Icon type="Feather" name="trending-up" style={{color:'#fff', fontSize:13,}} /> </Text>
+        </TouchableOpacity>
+      </View>
+    );
+    }
+  _renderItem1 ({item, index}) {
+    return (
+        
+      <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
+      <TouchableOpacity onPress={()=>{
+        NavigationService.navigate("Profile",{type:2})
+      }}>
+      <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
+      </TouchableOpacity>
+      <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions{item}</Text>                    
+    </View>
     );
     }
     render() {
+      const DATA=[1,2,3,4,5,6,7,8];
       return (
         <View style={{flex:1, backgroundColor:'#000'}}>
           <Modal animationIn={"slideInRight"} animationOut={"slideOutRight"} isVisible={this.state.filter} style={{padding:0,backgroundColor:'#0f1e2e', width:'75%', position:'absolute', top:0,bottom:0,right:0, margin:0}}>
@@ -64,9 +82,6 @@ export default class Home extends Component {
                   <Text style={{color:'#0f1e2e', fontSize:13, alignSelf:'center', fontWeight:'bold'}}>Activities</Text>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.8} style={{backgroundColor:'#f5f2f2', paddingVertical:20, width:'100%', marginVertical:2,borderRadius:5}}>
-                  <Text style={{color:'#0f1e2e', fontSize:13, alignSelf:'center', fontWeight:'bold'}}>Pubs</Text>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.8} style={{backgroundColor:'#f5f2f2', paddingVertical:20, width:'100%', marginVertical:2,borderRadius:5}}>
                   <Text style={{color:'#0f1e2e', fontSize:13, alignSelf:'center', fontWeight:'bold'}}>Others</Text>
                 </TouchableOpacity>
               </View>
@@ -74,15 +89,17 @@ export default class Home extends Component {
           </Modal>
           <SafeAreaView style={{flex:1, flexDirection:'column'}}>
             <View style={{flex:1,}}>
-              <View style={{width:'100%',paddingHorizontal:10, paddingVertical:5, flexDirection:'row'}}>
+              <View style={{width:'100%',paddingHorizontal:7, paddingVertical:15, flexDirection:'row'}}>
                 <TouchableOpacity activeOpacity={0.7} onPress={()=>{
                   NavigationService.navigate("AddItemScreen");
                 }}>
-                  <Icon type={"AntDesign"} name="plus" style={{color:'#fff', fontSize:15}}/>
+                  <Icon type={"AntDesign"} name="plus" style={{color:'#fff', fontSize:25, fontWeight:'bold'}}/>
                 </TouchableOpacity>
                 <View style={{flexDirection:'row', marginLeft:'auto'}}>
-                  <TouchableOpacity>
-                    <Icon type={"FontAwesome"} name="bell-o" style={{color:'#e2e2e2', fontSize:20}}/>
+                  <TouchableOpacity onPress={()=>{
+                    NavigationService.navigate("Notifications")
+                  }}>
+                    <Icon type={"FontAwesome"} name="bell-o" style={{color:'#e2e2e2', fontSize:25}}/>
                     <View style={{width:12, height:12, backgroundColor:'#e20f00', alignItem:'center', justifyContent:'center', alignContent:'center', position:'absolute', top:0, right:-4, borderRadius:7}}>
                         <Text style={{color:'#fff', fontSize:9, textAlign:'center'}}>4</Text>
                     </View>
@@ -90,71 +107,43 @@ export default class Home extends Component {
                   <TouchableOpacity style={{marginLeft:30}} activeOpacity={0.7} onPress={()=>{
                     this.setState({filter:true})
                   }}>
-                    <Icon type={"FontAwesome"} name="filter" style={{color:'#e2e2e2', fontSize:20}}/>
+                    <Icon type={"FontAwesome"} name="filter" style={{color:'#e2e2e2', fontSize:25}}/>
                   </TouchableOpacity>
                 </View>
               </View>
               <View style={{width:'100%', flex:1, flexDirection:'column'}}>
-                <View style={{width:'100%', height:40, }}>
-                <ScrollView style={{flexDirection:'row',}} showsHorizontalScrollIndicator={false} horizontal={true} >
-                  <View style={{flexDirection:'row',alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#7738eb',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Local{"\n"}stories</Text>
+                <View style={{width:'100%', height:width*0.25, flexDirection:'row', paddingHorizontal:10}}>
+                <TouchableOpacity activeOpacity={1} style={{flexDirection:'column', width:'25%', height:'100%',}} onPress={()=>{
+                    NavigationService.navigate("Events");
+                  }}>
+                  <Text style={{color:'#d98020', fontSize:13}}> Local Story </Text>
+                  <View style={{flex:1, width:'90%',borderRadius:10}}>
+                  <FitImage source={require('../../assets/images/temp/image1.jpg')} style={{borderRadius:10,overflow:'hidden'}} resizeMode={"cover"} />
                   </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <TouchableOpacity onPress={()=>{
-                      NavigationService.navigate("Profile",{type:2})
-                    }}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    </TouchableOpacity>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>                    
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d', }}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                  <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-                    <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:30, height:30, borderRadius:15, borderWidth:2, borderColor:'#f5a44d',}}/>
-                    <Text style={{color:'#fff', marginLeft:5,}}>Jess S{"\n"}10k Impressions</Text>
-                  </View>
-                </ScrollView>
-                 
-                </View>
-                <View style={{flex:1, width:'100%',}}>
-                    <Carousel
+                  <Text style={{color:'#fff', fontSize:13}}> </Text>
+                  </TouchableOpacity>
+                  <View style={{flex:1}}>
+
+                  <Carousel
                       enableSnap = {true}
                       ref={(c) => { this._carousel = c; }}
                       data={this.state.entries}
                       renderItem={this._renderItem}
-                      sliderWidth={width}
-                      itemWidth={width*0.5}
+                      sliderWidth={width*0.75}
+                      itemWidth={width*0.25}
+                      inactiveSlideScale = {1}
+                      inactiveSlideOpacity = {1}
                       loop = {true}
+                      onSnapToItem={(index)=>{
+                   //     this._carousel1.snapToItem(index);
+                      }}
                       loopClonesPerSide = {this.state.entries.length}
                     />
-                    <Text style={{color:'#fff', fontSize:12, position:'absolute', bottom:0, left:10,}}>Venues</Text>
+                  </View>
                   </View>                  
-                <View style={{flex:2,}}>
-                  <ScrollView style={{width:'100%'}}>
+                <View style={{flex:2, flexDirection:'column'}}>
+                  <Text style={{color:'#fff', fontSize:12, marginLeft:10}}>Venues</Text>
+                  <ScrollView style={{width:'100%', flex:1}}>
                     <Venue />
                     <Venue />
                     <Venue />

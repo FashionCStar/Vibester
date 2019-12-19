@@ -15,7 +15,7 @@ export default class ReadingItem extends Component {
   }
   render() {
     return (
-    <View style={{flexDirection:'column', padding:10, width:this.props.width, alignItems:'center'}}>        
+    <TouchableOpacity style={{flexDirection:'column', padding:10, width:this.props.width, alignItems:'center'}} onPress = {this.props.onPress} >        
       <Image source = {require("../../assets/images/temp/image2.jpg")} style={{width:this.props.width-20, height:this.props.width-30, borderRadius:10}} />
       <View style={{width:this.props.width-20,flexDirection:'column', marginTop:5}}>
         <Text style={{ color:'#fff', fontSize:9, flexWrap:'wrap',}} textBreakStrategy={"highQuality"} >
@@ -33,7 +33,7 @@ export default class ReadingItem extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
     );
   }
 }

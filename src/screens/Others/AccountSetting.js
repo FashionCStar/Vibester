@@ -50,6 +50,12 @@ export default class AccountSetting extends Component {
                 <TouchableOpacity activeOpacity={0.7} style={{marginTop:10}} onPress={()=>{NavigationService.navigate("StorySetting")}}>
               <Text style={{color:'#fff', fontSize:15}}> Story Setting </Text>
               </TouchableOpacity>
+
+              <TouchableOpacity activeOpacity={0.7} style={{marginTop:10}} onPress={()=>{
+                NavigationService.navigate("MyPosts");
+              }}>
+              <Text style={{color:'#fff', fontSize:15}}> My posts </Text>
+              </TouchableOpacity>
               
               <TouchableOpacity activeOpacity={0.7} style={{marginTop:10}}>
               <Text style={{color:'#fff', fontSize:15}}> Report a problem </Text>

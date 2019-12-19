@@ -30,8 +30,8 @@ export default class SnapPage extends Component {
               </TouchableOpacity>
             </View>
             <View style={{flex:1, width:'100%',}}>
-             <View style={{flex:1, marginVertical:20}}>
-              <Image source={require('../../assets/images/temp/image3.jpg')} style={{width:'100%', height:'100%'}} />
+             <View style={{flex:1, marginVertical:15}}>
+              <Image source={require('../../assets/images/temp/image3.jpg')} style={{width:'100%', height:'100%', borderRadius:20}} />
              </View>
              <View style={{width:'100%', flexDirection:'row', justifyContent:'center', paddingHorizontal:20}}>
               <TextInput style={{borderWidth:1, borderColor:'#fff', color:'#fff', paddingVertical:0,flex:1,paddingHorizontal:10 }} placeholderTextColor="#fff" placeholder="Reply..."  />

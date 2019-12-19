@@ -21,7 +21,9 @@ export default class AddItemScreen extends Component {
               <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
             </TouchableOpacity>
             <View style={{flex:1, width:'100%', padding:30}}>
-              <TouchableOpacity style={{width:'100%', height:'18%', marginVertical:10, backgroundColor:'#1c1b1b', justifyContent:'center'}} activeOpacity={0.7}>
+              <TouchableOpacity style={{width:'100%', height:'18%', marginVertical:10, backgroundColor:'#1c1b1b', justifyContent:'center'}} activeOpacity={0.7} onPress={()=>{
+                 NavigationService.navigate("CreateEvent");
+              }}>
                 <Text style={{color:'#fff', fontSize:27, alignSelf:'center'}}>Create an event</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{width:'100%', height:'18%', marginVertical:10, backgroundColor:'#1c1b1b', justifyContent:'center'}} activeOpacity={0.7} onPress={()=>{
@@ -29,7 +31,9 @@ export default class AddItemScreen extends Component {
               }}>
                 <Text style={{color:'#fff', fontSize:27, alignSelf:'center'}}>Add a venue</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{width:'100%', height:'18%', marginVertical:10, backgroundColor:'#1c1b1b', justifyContent:'center'}} activeOpacity={0.7}>
+              <TouchableOpacity style={{width:'100%', height:'18%', marginVertical:10, backgroundColor:'#1c1b1b', justifyContent:'center'}} activeOpacity={0.7} onPress={()=>{
+                NavigationService.navigate("AddActivity");
+              }}>
                 <Text style={{color:'#fff', fontSize:27, alignSelf:'center'}}>Add activity</Text>
               </TouchableOpacity>
             </View>

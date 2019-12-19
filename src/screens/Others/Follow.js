@@ -63,9 +63,6 @@ export default class Follow extends Component {
                     keyExtractor={item => item.id}
                 />
               </View>
-              <View style={{flex:1, paddingTop:20}}>
-                <Text style={{fontSize:16, color:'#fff', marginLeft:10,}}>User name:</Text>
-              </View>
             </View>}
           </SafeAreaView>
         </View>

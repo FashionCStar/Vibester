@@ -71,6 +71,9 @@ export default class Reading extends Component {
               </View>
               <View style={{width:50}}></View>
             </View>
+            <Text style={{color:'#fff', fontSize:20, marginLeft:10, marginVertical:10}}> 
+              Discovery
+            </Text>
             <View style={{flex:1, flexDirection:'column', paddingTop:10, paddingHorizontal:5}}>
               <View style={{paddingHorizontal:25,}}>
                 <SearchBar
@@ -99,34 +102,103 @@ export default class Reading extends Component {
                   <Search/>
                 </View>}
                 <ScrollView style={{flex:1, marginTop:20, flexDirection:'column'}}>
+                  <Text style={{color:'#fff',fontSize:15,}}>Bars</Text>
+                  <ScrollView style={{flexDirection:'row', width:'100%',}} horizontal={true}>
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                  </ScrollView>
                   <Text style={{color:'#fff',fontSize:15,}}>Night Club</Text>
                   <ScrollView style={{flexDirection:'row', width:'100%',}} horizontal={true}>
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
                   </ScrollView>
                   <Text style={{color:'#fff',fontSize:15,}}>Events</Text>
                   <ScrollView style={{flexDirection:'row', width:'100%',}} horizontal={true}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={()=>{
-                      this.setState({largeView:true})
-                    }}>
-                      <ReadingItem width={width/2.3}/>
-                    </TouchableOpacity>
                     
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
                   </ScrollView>
                   <Text style={{color:'#fff',fontSize:15,}}>Activities</Text>
                   <ScrollView style={{flexDirection:'row', width:'100%',}} horizontal={true}>
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
-                    <ReadingItem width={width/2.3} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                  </ScrollView>
+                  <Text style={{color:'#fff',fontSize:15,}}>Others</Text>
+                  <ScrollView style={{flexDirection:'row', width:'100%',}} horizontal={true}>
+                    
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
+                    <ReadingItem width={width/2.3} onPress={()=>{
+                      this.setState({largeView:true})
+                    }} />
                   </ScrollView>
                 </ScrollView>
               </View>

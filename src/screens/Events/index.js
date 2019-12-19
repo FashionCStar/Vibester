@@ -22,7 +22,7 @@ export default class Events extends Component {
   _renderItem ({item, index}) {
     return (
         <View style={{borderRadius:20,}}>
-          <Image source={require('../../assets/images/temp/image1.jpg')} style={{borderRadius:20, width:'100%', height:'100%'}} resizeMode={"contain"} />
+          <Image source={require('../../assets/images/temp/image1.jpg')} style={{borderRadius:5, width:'100%', height:'100%'}} resizeMode={"cover"} />
         </View>
     );
   }
@@ -30,39 +30,45 @@ export default class Events extends Component {
     return (
       <View style={{flex:1, backgroundColor:'#000'}}>
         <SafeAreaView style={{flex:1, flexDirection:'column'}}>
-          <View style={{flex:2.5, width:'100%', alignItems:'center'}}>
-            <Image style={{width:'100%', height:'100%'}} source={require('../../assets/images/temp/image3.jpg')} resizeMode={"cover"} />
-            <TouchableOpacity style={{position:'absolute', top:10, right:10}} activeOpacity={0.7} onPress={()=>{
+        <View style={{width:'100%',marginVertical:5}}>
+        
+        <View style={{flexDirection:'row',alignItems:'center', alignSelf:'center' }}>
+                <Icon type="Entypo" name="location-pin" style={{color:'#f00', fontSize:20}}/>
+                <Text style={{fontSize:12, color:'#f7ba7b', fontWeight:'bold', marginLeft:5}}>London UK</Text>
+              </View>  
+              
+            <View style={{flexDirection:'row', width:'100%', paddingHorizontal:10}}>       
+            
+              <View style={{flexDirection:'row',alignItems:'center', }}>
+                <Icon type="FontAwesome" name="user-circle-o" style={{color:'#fff', fontSize:25}}/>
+                <Text style={{fontSize:12, color:'#fff', fontWeight:'bold', marginLeft:5}}>Nnams Nwachuku</Text>
+              </View>     
+              <TouchableOpacity style={{marginLeft:'auto', marginRight:10}} activeOpacity={0.7} onPress={()=>{
               this.props.navigation.goBack(null);
             }}>
-              <Text style={{fontSize:17, color:'#fff'}}>X</Text>
+              <Text style={{fontSize:14, color:'#fff'}}>X</Text>
             </TouchableOpacity>
-            <View style={{position:'absolute', top:10, alignItems:'center', flexDirection:'column'}}>
-              <View style={{flexDirection:'row',alignItems:'center', }}>
-                <Icon type="FontAwesome" name="user-circle-o" style={{color:'#000', fontSize:25}}/>
-                <Text style={{fontSize:12, color:'#fff', fontWeight:'bold', marginLeft:5}}>Nnams Nwachuku</Text>
-              </View>
-              <View style={{flexDirection:'row',alignItems:'center', }}>
-                <Icon type="Entypo" name="location-pin" style={{color:'#000', fontSize:20}}/>
-                <Text style={{fontSize:12, color:'#f7ba7b', fontWeight:'bold', marginLeft:5}}>Nnams Nwachuku</Text>
-              </View>              
             </View>
+        </View>
+          <View style={{flex:1, width:'100%', alignItems:'center'}}>
+            <Image style={{width:'100%', height:'100%', borderRadius:10}} source={require('../../assets/images/temp/image3.jpg')} resizeMode={"cover"} />
+            
             <View style={{position:'absolute', bottom:10, right:10, alignItems:'center', flexDirection:'column',}}>
               <View style={{flexDirection:'row',alignItems:'center', }}>
-                <Icon type="FontAwesome" name="desktop" style={{color:'#ccc', fontSize:18}}/>
+                <Icon type="Feather" name="trending-up" style={{color:'#ccc', fontSize:18}}/>
                 <Text style={{fontSize:16, color:'#fff',  marginLeft:5}}>275</Text>
               </View>
-              <Text style={{fontSize:12, color:'#fff', fontWeight:'bold', marginLeft:5}}>Impressions</Text>
+              <Text style={{fontSize:12, color:'#fff', fontWeight:'bold', marginLeft:5}}>Reach</Text>
             </View>
           </View>
-          <View style={{flex:1, width:'100%', paddingBottom:10}}>
+          <View style={{width:'100%', height:width*0.4, paddingBottom:10}}>
             <Carousel
               enableSnap = {true}
               ref={(c) => { this._carousel = c; }}
               data={this.state.entries}
               renderItem={this._renderItem}
               sliderWidth={width}
-              itemWidth={width*0.5}
+              itemWidth={width*0.4}
               loop = {true}
               loopClonesPerSide = {this.state.entries.length}
             />

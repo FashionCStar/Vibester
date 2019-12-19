@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {View,  SafeAreaView, FlatList,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
+import {View,  SafeAreaView, StatusBar,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
 import NavigationService from '../../NavigationService'
 import { Icon, Item, Input } from 'native-base';
 const width = Dimensions.get("window").width
 import { Switch } from 'react-native-switch';
+import { FlatList } from 'react-native-gesture-handler';
 import { CheckBox } from 'react-native-elements'
 import { SearchBar } from 'react-native-elements';
 
-export default class SelectProfiles extends Component { 
+export default class SelectVenues extends Component { 
 
   constructor (props) {
     super(props);
@@ -29,19 +30,19 @@ export default class SelectProfiles extends Component {
               <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.8} style={{marginTop:10, marginLeft:'auto', marginRight:10}} onPress={()=>{
-                this.props.navigation.goBack(null);
+               
             }}>
-              <Text style={{color:'#fff', fontSize:15}}>Done</Text>
+              <Icon type={"Ionicons"} name="ios-send" style={{color:'#d1d1d1', fontSize:20}} />
             </TouchableOpacity>
             </View>
             <SearchBar
-              containerStyle={{backgroundColor:'#000',padding:0, height:undefined }}
+              containerStyle={{backgroundColor:'#000',padding:0, height:undefined, width:'80%', marginLeft:'auto', marginRight:'auto'}}
               inputContainerStyle={{padding:0, margin:0,  backgroundColor:'#fff', borderBottomWidth:1, borderColor:'#fff', borderWidth:1, margin:0, height:30}}
               inputStyle={{padding:0, fontSize:14, margin:0,}}
               leftIconContainerStyle={{paddingVertical:0,}}
               placeholder="Search"
             />
-            <View style={{flex:1, width:'100%', paddingHorizontal:30, paddingVertical:10}}>
+            <View style={{flex:1, width:'100%', paddingHorizontal:20, paddingVertical:10}}>
               <FlatList
                  data={DATA}
                   renderItem={({ item }) =>{
