@@ -12,6 +12,8 @@ export default class ImageEdit extends PureComponent  {
         super(props);
         this.state = {
             image_uri:"",
+            width:0,
+            height:0
         }
     }
 
@@ -24,6 +26,7 @@ export default class ImageEdit extends PureComponent  {
         this.setState({
             image_uri:image_uri
         })
+        Image.getSize(image_uri, (width, height) => {this.setState({width, height})});
     }
 
     render() {
@@ -31,7 +34,7 @@ export default class ImageEdit extends PureComponent  {
         return (
             <View style={{flex:1}}>
                        
-            <Image source={{uri:this.state.image_uri}} style={{width:'100%', height:'100%', backgroundColor:'#000'}} resizeMode={"contain"} />
+            <Image source={{uri:this.state.image_uri}} style={{width:'100%', height:'100%', backgroundColor:'#000'}} resizeMode={this.state.width>this.state.height?"contain":"stretch"} />
 
             <View style={{position:'absolute',width:'100%', top:isIphoneX()?getStatusBarHeight()+10:10, flexDirection:'row', justifyContent:'center'}}>
                 <TouchableOpacity style={{position:'absolute', left:10, top:0}} onPress={()=>{

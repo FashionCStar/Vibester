@@ -29,55 +29,57 @@ export default class Profile extends Component {
         <View style={{flex:1, backgroundColor:'#000', flexDirection:'column'}}>
           <View style={{flex:1, width:'100%'}}>
           
-          <TouchableOpacity style={{width:width, height:width}} activeOpacity={1} onPress={()=>{
-              NavigationService.navigate("Events");
-            }}>
-            <ImageBackground source={require('../../assets/images/temp/image3.jpg')} style={{width:'100%', height:'100%'}} imageStyle={{resizeMode:'cover'}}>
-              <LinearGradient colors={['rgba(100,100,100,1)', 'rgba(0,0,0,0.05)']} style={{width:'100%', height:'100%'}} start={{x: 0, y: 1}} end={{x: 0, y: 0.6}}>
-                <View style={{width:'100%', flexDirection:'row',marginTop:5}}>
-                  {type=="2"&&
-                  <TouchableOpacity activeOpacity={0.8} style={{marginLeft:10}} onPress={()=>{
-                      this.props.navigation.goBack(null);
-                  }}>
-                    <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
-                  </TouchableOpacity>}
-                  {type=="1"&&
-                  <TouchableOpacity style={{marginLeft:'auto'}} activeOpacity={0.7} onPress={()=>{
-                    this.setState({isEditMode:true})
-                  }}>
-                    <Icon type={"FontAwesome"} name="edit" style={{color:'#fff', fontSize:20}} />
-                  </TouchableOpacity>}
-                  {type=="1"&&<TouchableOpacity style={{marginLeft:5, marginRight:10}} activeOpacity={0.7} onPress={()=>{
-                    NavigationService.navigate("AccountSetting");
-                  }}>
-                    <Icon type={"FontAwesome"} name="cog" style={{color:'#fff', fontSize:20}} />
-                  </TouchableOpacity>}
-                  {type=="2"&&
-                  <View style={{flexDirection:'row', marginLeft:'auto',}}>
-                  {this.state.showReportBtn&&
-                    <View style={{flexDirection:'column', alignItems:'center'}}>
-                      <TouchableOpacity>
-                        <Text style={{color:'#fff', fontSize:14, fontWeight:'bold'}}>Report</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Text style={{color:'#fff', fontSize:14, fontWeight:'bold'}}>Block</Text>
-                      </TouchableOpacity>
+            <TouchableOpacity style={{width:width, height:width*1.3}} activeOpacity={1} onPress={()=>{
+                NavigationService.navigate("Events");
+              }}>
+              <ImageBackground source={require('../../assets/images/temp/image3.jpg')} style={{width:'100%', height:'100%'}} imageStyle={{resizeMode:'cover'}}>
+                <LinearGradient colors={['rgba(100,100,100,1)', 'rgba(0,0,0,0.05)']} style={{width:'100%', height:'100%'}} start={{x: 0, y: 1}} end={{x: 0, y: 0.6}}>
+                  <SafeAreaView>
+                    <View style={{width:'100%', flexDirection:'row',marginTop:5}}>
+                      {type=="2"&&
+                      <TouchableOpacity activeOpacity={0.8} style={{marginLeft:10}} onPress={()=>{
+                          this.props.navigation.goBack(null);
+                      }}>
+                        <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
+                      </TouchableOpacity>}
+                      {type=="1"&&
+                      <TouchableOpacity style={{marginLeft:'auto'}} activeOpacity={0.7} onPress={()=>{
+                        this.setState({isEditMode:true})
+                      }}>
+                        <Icon type={"FontAwesome"} name="edit" style={{color:'#fff', fontSize:20}} />
+                      </TouchableOpacity>}
+                      {type=="1"&&<TouchableOpacity style={{marginLeft:10, marginRight:15}} activeOpacity={0.7} onPress={()=>{
+                        NavigationService.navigate("AccountSetting");
+                      }}>
+                        <Icon type={"FontAwesome"} name="cog" style={{color:'#fff', fontSize:20}} />
+                      </TouchableOpacity>}
+                      {type=="2"&&
+                      <View style={{flexDirection:'row', marginLeft:'auto',}}>
+                      {this.state.showReportBtn&&
+                        <View style={{flexDirection:'column', alignItems:'center'}}>
+                          <TouchableOpacity>
+                            <Text style={{color:'#fff', fontSize:14, fontWeight:'bold'}}>Report</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity>
+                          <Text style={{color:'#fff', fontSize:14, fontWeight:'bold'}}>Block</Text>
+                          </TouchableOpacity>
+                        </View>
+                      }
+                        <TouchableOpacity style={{marginLeft:15, marginRight:10}} activeOpacity={0.7} onPress={()=>{
+                          this.setState({showReportBtn:!this.state.showReportBtn})
+                        }}>
+                          <Icon type={"MaterialCommunityIcons"} name="dots-vertical" style={{color:'#fff', fontSize:20}} />
+                        </TouchableOpacity>
+                      </View>
+                      }
                     </View>
-                  }
-                    <TouchableOpacity style={{marginLeft:15, marginRight:10}} activeOpacity={0.7} onPress={()=>{
-                      this.setState({showReportBtn:!this.state.showReportBtn})
-                    }}>
-                      <Icon type={"MaterialCommunityIcons"} name="dots-vertical" style={{color:'#fff', fontSize:20}} />
-                    </TouchableOpacity>
+                  </SafeAreaView>
+                  <View style={{marginTop:'auto', alignItems:'center', marginBottom:40}} >
+                    <Text style={{color:'#fff', fontSize:17, fontWeight:'bold'}}>Tap to view</Text>
+                    <Text style={{color:'#fff', fontSize:12, fontWeight:'bold'}}>Nnamdi's vibes</Text>
                   </View>
-                  }
-                </View>
-                <View style={{marginTop:'auto', alignItems:'center', marginBottom:40}} >
-                  <Text style={{color:'#fff', fontSize:17, fontWeight:'bold'}}>Tap to view</Text>
-                  <Text style={{color:'#fff', fontSize:12, fontWeight:'bold'}}>Nnamdi's vibes</Text>
-                </View>
-              </LinearGradient>
-            </ImageBackground>
+                </LinearGradient>
+              </ImageBackground>
             </TouchableOpacity>
             <View style={{flex:1,}}>
               <View style={{width:'100%', justifyContent:'space-evenly', flexDirection:'row'}}>

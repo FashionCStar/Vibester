@@ -29,7 +29,7 @@ export default class SelectProfiles extends Component {
               <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.8} style={{marginTop:10, marginLeft:'auto', marginRight:10}} onPress={()=>{
-                this.props.navigation.goBack(null);
+                NavigationService.navigate("Home")
             }}>
               <Text style={{color:'#fff', fontSize:15}}>Done</Text>
             </TouchableOpacity>

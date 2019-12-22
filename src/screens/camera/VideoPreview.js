@@ -89,7 +89,7 @@ export default class VideoPreview extends Component {
             <Icon type={"MaterialIcons"} name="close" style={{color:'#fff', fontSize:25,}} />
             </TouchableOpacity>
             <TouchableOpacity style={{position:'absolute', right:10, top:0}} onPress={()=>{
-                NavigationService.navigate("ImageEdit", {image_uri:uri});
+                NavigationService.navigate("CameraComplete", {type:0});
             }}>
               <Icon type={"Ionicons"} name="ios-send" style={{color:'#fff', fontSize:30,}} />
             </TouchableOpacity>

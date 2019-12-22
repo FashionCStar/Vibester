@@ -89,11 +89,12 @@ export default class Home extends Component {
           </Modal>
           <SafeAreaView style={{flex:1, flexDirection:'column'}}>
             <View style={{flex:1,}}>
-              <View style={{width:'100%',paddingHorizontal:7, paddingVertical:15, flexDirection:'row'}}>
+              <View style={{width:'100%',paddingHorizontal:7, paddingVertical:15, flexDirection:'row', alignItems:'center'}}>
                 <TouchableOpacity activeOpacity={0.7} onPress={()=>{
                   NavigationService.navigate("AddItemScreen");
                 }}>
-                  <Icon type={"AntDesign"} name="plus" style={{color:'#fff', fontSize:25, fontWeight:'bold'}}/>
+                  {/* <Icon type={"AntDesign"} name="plus" style={{color:'#fff', fontSize:25, fontWeight:'bold'}}/> */}
+                  <Text style={{color:'#fff', fontSize:30, fontWeight:'bold'}}>+</Text>
                 </TouchableOpacity>
                 <View style={{flexDirection:'row', marginLeft:'auto'}}>
                   <TouchableOpacity onPress={()=>{
