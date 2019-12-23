@@ -26,7 +26,7 @@ export default class Camera extends PureComponent  {
                 }}
                 style={styles.preview}
                 type={this.state.cameramode?RNCamera.Constants.Type.back:RNCamera.Constants.Type.front}
-                flashMode={this.state.flashMode?RNCamera.Constants.FlashMode.on:RNCamera.Constants.FlashMode.off}
+                flashMode={this.state.flashMode?(!this.state.recording?RNCamera.Constants.FlashMode.auto:RNCamera.Constants.FlashMode.torch):RNCamera.Constants.FlashMode.off}
                 androidCameraPermissionOptions={{
                 title: 'Permission to use camera',
                 message: 'We need your permission to use your camera',
@@ -110,8 +110,7 @@ export default class Camera extends PureComponent  {
     
         takePicture = async() => {
           if (this.camera) {
-
-              const options = { quality: 0.5, base64: true, fixOrientation:true, mirrorImage:!this.state.cameramode };
+              const options = { quality: 0.5, base64: true, fixOrientation:true, forceUpOrientation:true, mirrorImage:!this.state.cameramode };
               const data = await this.camera.takePictureAsync(options);
               NavigationService.navigate("ImageEdit",{image_uri:data.uri});
           }
@@ -120,6 +119,12 @@ export default class Camera extends PureComponent  {
         takeVideo = async() => {
           if (this.camera) {
               this.setState({ recording: true });
+
+              if(this.state.flashMode)
+              {
+                
+              }
+              
               const { uri, codec = "mp4" } = await this.camera.recordAsync({
                 maxDuration :15,
                 mirrorVideo:!this.state.cameramode 
@@ -154,17 +159,13 @@ export default class Camera extends PureComponent  {
                 console.log('User tapped custom button: ', response.customButton);
               }
               else {
-                let source = null;
+                let image_uri = null;
                 if(response.type !=null)
                 {
-                  source = { uri: response.uri };
-                }
-                else
-                {
-                  source = { uri: response.uri };
+                  image_uri = response.uri;
                 }
                 
-                NavigationService.navigate("ImageEdit",{image_uri:response.uri});
+                NavigationService.navigate("ImageEdit",{image_uri:image_uri});
               }
             });
           }

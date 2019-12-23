@@ -46,7 +46,7 @@ export default class Events extends Component {
               <TouchableOpacity style={{marginLeft:'auto', marginRight:10}} activeOpacity={0.7} onPress={()=>{
               this.props.navigation.goBack(null);
             }}>
-              <Text style={{fontSize:14, color:'#fff'}}>X</Text>
+              <Text style={{fontSize:22, fontWeight:'bold', color:'#fff'}}>X</Text>
             </TouchableOpacity>
             </View>
         </View>

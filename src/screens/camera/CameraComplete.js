@@ -33,7 +33,7 @@ export default class CameraComplete extends Component {
                 </TouchableOpacity>
                 
                 <TouchableOpacity activeOpacity={0.8} style={{marginRight:10}} onPress={()=>{
-                    this.props.navigation.goBack(null);
+                    NavigationService.navigate("Home")
                 }}>
                   <Icon type={"Ionicons"} name="ios-send" style={{color:'#fff', fontSize:20,}} />
                 </TouchableOpacity>
@@ -45,7 +45,7 @@ export default class CameraComplete extends Component {
                 <TouchableOpacity activeOpacity={0.7} style={[{paddingVertical:10, paddingHorizontal:20},this.state.type==0&&{borderBottomColor:'#fff', borderBottomWidth:2}]} onPress={()=>{
                   this.setState({type:0})
                 }}>
-                  <Text style={{fontSize:14, color:'#fff',}}>Add to venu</Text>
+                  <Text style={{fontSize:14, color:'#fff',}}>Add to venue</Text>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.7} style={[{paddingVertical:10, paddingHorizontal:20},this.state.type==1&&{borderBottomColor:'#fff', borderBottomWidth:2}]} onPress={()=>{
                   this.setState({type:1})
