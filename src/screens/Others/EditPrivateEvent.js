@@ -27,7 +27,7 @@ export default class EditPrivateEvent extends Component {
             <View style={{flexDirection:'row', width:'100%',height:300}}>
               <Image source={require('../../assets/images/temp/image4.png')} style={{width:'100%', height:'100%'}} />
               <TouchableOpacity style={{position:'absolute', top:10, right:10}} onPress={()=>{
-                NavigationService.navigate("PrivateChat");
+                this.props.navigation.goBack();
               }}>
                 <Text style={{color:'#fff'}}>
                   Done

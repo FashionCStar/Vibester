@@ -97,6 +97,9 @@ export default class Camera extends PureComponent  {
                 <TouchableOpacity style={styles.capture1} onPress={
                   ()=>{this.stopRecording()}
                 } >
+                <Text style={{color:'#fff', textAlign:'center', fontSize:10}}>
+                  Tap to stop recording
+                </Text>
                 </TouchableOpacity>}
                 <TouchableOpacity onPress={()=>{
                     this.setState({cameramode:!this.state.cameramode})
@@ -119,11 +122,6 @@ export default class Camera extends PureComponent  {
         takeVideo = async() => {
           if (this.camera) {
               this.setState({ recording: true });
-
-              if(this.state.flashMode)
-              {
-                
-              }
               
               const { uri, codec = "mp4" } = await this.camera.recordAsync({
                 maxDuration :15,
@@ -165,7 +163,10 @@ export default class Camera extends PureComponent  {
                   image_uri = response.uri;
                 }
                 
-                NavigationService.navigate("ImageEdit",{image_uri:image_uri});
+                if(type=="image")
+                  NavigationService.navigate("ImageEdit",{image_uri:image_uri});                  
+                if(type=="video")
+                NavigationService.navigate("VideoPreview",{image_uri:image_uri});
               }
             });
           }
@@ -198,6 +199,8 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       borderColor:'#f00',
       borderWidth:4,
+      alignItems:'center',
+      justifyContent:'center'
       },
 });
   

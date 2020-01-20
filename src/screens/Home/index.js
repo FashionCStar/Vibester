@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View,  SafeAreaView, ScrollView,StatusBar,Image,Platform,Text,TouchableOpacity,Dimensions} from 'react-native';
+import {View,  SafeAreaView, ScrollView,BackHandler,Image,Alert,Text,TouchableOpacity,Dimensions} from 'react-native';
 import NavigationService from '../../NavigationService'
 import { Icon, Item, Input, Button } from 'native-base';
 import Footer from '../common/Footer';
@@ -19,6 +19,30 @@ export default class Home extends Component {
       entries:[1,2,3,4,5,6,78,98,],
       filter:false
     }
+
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);    
+  }
+
+  componentDidMount = ()=>{
+    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    });
+  }
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+    Alert.alert(
+      '',
+      "Are you sure exit?",
+      [
+        {text: "No", onPress: () => {}, style: 'cancel'},
+        {text: "Yes", onPress: () => {BackHandler.exitApp();}},
+      ],
+      { cancelable: false }
+    );
+    return true;
   }
 
   _renderItem ({item, index}) {

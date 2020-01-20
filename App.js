@@ -32,6 +32,7 @@ import Follow from './src/screens/Others/Follow'
 import EditPrivateEvent from './src/screens/Others/EditPrivateEvent'
 import Reading from './src/screens/Reading'
 import Vibes from './src/screens/Notifications/Vibes'
+import NewChatSelectUsers from './src/screens/Notifications/NewChatSelectUsers'
 import SnapPage from './src/screens/Notifications/SnapPage'
 import Chat from './src/screens/Notifications/Chat'
 import Notifications from './src/screens/Notifications/Notifications'
@@ -74,6 +75,7 @@ const ActivityProject = createStackNavigator(
     ImageEdit: { screen: ImageEdit,navigationOptions: {header: null,}, },
     CameraComplete: { screen: CameraComplete,navigationOptions: {header: null,}, },
     VideoPreview: { screen: VideoPreview,navigationOptions: {header: null,}, },
+    NewChatSelectUsers: { screen: NewChatSelectUsers,navigationOptions: {header: null,}, },
   },
   {
     initialRouteName: "Login",

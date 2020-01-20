@@ -24,7 +24,7 @@ export default class Vibes extends Component {
                 Vibes
               </Text>
               <TouchableOpacity activeOpacity={0.8} style={{position:'absolute', right:20, bottom:0}} onPress={()=>{
-                  NavigationService.navigate("SelectProfiles")
+                  NavigationService.navigate("NewChatSelectUsers")
               }}>
                 <Icon type={"MaterialCommunityIcons"} name="file-document-edit-outline" style={{color:'#fff', fontSize:25}}/>
               </TouchableOpacity>

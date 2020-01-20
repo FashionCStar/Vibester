@@ -76,7 +76,7 @@ export default class VideoPreview extends Component {
           playInBackground={false} // Audio continues to play when app entering background.
           playWhenInactive={false}
           ref={videoPlayer => (this.videoPlayer = videoPlayer)}
-          resizeMode="cover"
+          resizeMode="contain"
           repeat={true}
           source={{ uri: uri }}
           style={styles.mediaPlayer}

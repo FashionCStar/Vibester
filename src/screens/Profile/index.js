@@ -29,7 +29,7 @@ export default class Profile extends Component {
         <View style={{flex:1, backgroundColor:'#000', flexDirection:'column'}}>
           <View style={{flex:1, width:'100%'}}>
           
-            <TouchableOpacity style={{width:width, height:width*1.3}} activeOpacity={1} onPress={()=>{
+            <TouchableOpacity style={{width:width, height:width}} activeOpacity={1} onPress={()=>{
                 NavigationService.navigate("Events");
               }}>
               <ImageBackground source={require('../../assets/images/temp/image3.jpg')} style={{width:'100%', height:'100%'}} imageStyle={{resizeMode:'cover'}}>

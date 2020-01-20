@@ -48,8 +48,12 @@ export default class SelectProfiles extends Component {
                   renderItem={({ item }) =>{
                       return (
                         <View style={{flexDirection:'row', marginVertical:5, backgroundColor:'#000', alignItems:'center'}}>
+                         <TouchableOpacity style={{flexDirection:'row', alignItems:'center'}} onPress={()=>{
+                            NavigationService.navigate("Profile",{type:'2'})
+                          }}>
                           <Image style={{width:40, height:40, borderRadius:20}} source={require('../../assets/images/avatar.png')} />
                           <Text style={{fontSize:16, color:'#fff', marginLeft:10,  }}>Profile name{item}</Text>
+                          </TouchableOpacity>
                           <CheckBox
                             containerStyle={{marginLeft:'auto'}}
                             checked={true}

@@ -34,7 +34,7 @@ export default class ImageEdit extends PureComponent  {
         return (
             <View style={{flex:1}}>
                        
-            <Image source={{uri:this.state.image_uri}} style={{width:'100%', height:'100%', backgroundColor:'#000'}} resizeMode={this.state.width>this.state.height?"contain":"stretch"} />
+            <Image source={{uri:this.state.image_uri}} style={{width:'100%', height:'100%', backgroundColor:'#000'}} resizeMode={this.state.width>this.state.height?"contain":"contain"} />
 
             <View style={{position:'absolute',width:'100%', top:isIphoneX()?getStatusBarHeight()+10:10, flexDirection:'row', justifyContent:'center'}}>
                 <TouchableOpacity style={{position:'absolute', left:10, top:0}} onPress={()=>{
