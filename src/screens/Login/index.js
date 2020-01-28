@@ -4,6 +4,7 @@ import NavigationService from '../../NavigationService'
 import { Icon, Item, Input } from 'native-base';
 import AppUtils from '../../utils/AppUtlls';
 import Axios from '../../Axios';
+import firebase from 'react-native-firebase'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class Login extends Component { 
@@ -16,11 +17,11 @@ export default class Login extends Component {
   }
   signin = () => {
     let _password = this._password._root._lastNativeText;
-    let _username = this._username._root._lastNativeText;
+    let _email = this._username._root._lastNativeText;
 
-    if(_password == undefined || _username == undefined)
+    if(_password == undefined || _email == undefined)
     {
-      AppUtils.showToast("Please input username and password");        
+      AppUtils.showToast("Please input email and password");        
       return;
     }
 
@@ -28,29 +29,48 @@ export default class Login extends Component {
     
   //  NavigationService.navigate("Home");
 
-    Axios.post('login', {
-      username: _username,
-      password: _password,
-    })
-    .then((response) => {
-      console.log(response);
-      let res=response.data;
-      this.setState({loading:false});
-      if(res.status=='ok')
-      {        
-        global.user_data = res.user;
+    firebase.auth().signInWithEmailAndPassword(_email, _password)
+      .then((result)=>{
+        this.setState({loading:false}); 
+        console.log(result)
+        AppUtils.showToast("Login Success!");   
         NavigationService.navigate("Home");
-      } 
-      else
-      {
-        AppUtils.showToast("Wrong username or password.");  
-      }
-    })
-    .catch( (error) => {   
-      console.log(error);
-      this.setState({loading:false}); 
-      AppUtils.showToast("Failed. Try again.");     
-    });
+      })
+      .catch((error) => {
+        this.setState({loading:false}); 
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          AppUtils.showToast('Wrong password.');
+        } else {
+          AppUtils.showToast(errorMessage);
+        }
+        console.log(error);
+      });
+
+    // Axios.post('login', {
+    //   username: _username,
+    //   password: _email,
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    //   let res=response.data;
+    //   this.setState({loading:false});
+    //   if(res.status=='ok')
+    //   {        
+    //     global.user_data = res.user;
+    //     NavigationService.navigate("Home");
+    //   } 
+    //   else
+    //   {
+    //     AppUtils.showToast("Wrong username or password.");  
+    //   }
+    // })
+    // .catch( (error) => {   
+    //   console.log(error);
+    //   this.setState({loading:false}); 
+    //   AppUtils.showToast("Failed. Try again.");     
+    // });
   }
 
   render() {
@@ -72,13 +92,13 @@ export default class Login extends Component {
             <View style={{flex:1,}}>
               <Item style={{borderColor:'#717171', marginTop:'auto'}}>
                 <Icon active type={"MaterialCommunityIcons"}  name='email'  style={{color:'#717171'}} />
-                <Input placeholder='Email / User name' style={{fontSize:17, color:'#fff'}}  ref={c=>this._username=c} />
+                <Input placeholder='Email' style={{fontSize:17, color:'#717171'}}  ref={c=>this._username=c} />
               </Item>
             </View>
             <View style={{flex:1, }}>
               <Item style={{borderColor:'#717171', marginTop:'auto'}}>
                 <Icon active type={"MaterialCommunityIcons"}  name='lock'  style={{color:'#717171'}} />
-                <Input placeholder='Password' style={{fontSize:17, color:'#fff'}}  ref={c=>this._password=c} />
+                <Input placeholder='Password' secureTextEntry={true} style={{fontSize:17, color:'#717171'}}  ref={c=>this._password=c} />
               </Item>
             </View>
             <View style={{flex:1,flexDirection:'row', }}>

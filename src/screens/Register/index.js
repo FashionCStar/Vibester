@@ -6,6 +6,15 @@ import Toast from 'react-native-root-toast';
 import AppUtils from '../../utils/AppUtlls';
 import Axios from '../../Axios';
 import Spinner from 'react-native-loading-spinner-overlay';
+import firebase from 'react-native-firebase'
+import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'rn-fetch-blob'
+
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
 
 export default class Register extends Component { 
 
@@ -33,47 +42,92 @@ export default class Register extends Component {
       this._pwconfirm._root.clear();
       return;
     }
-    if (!AppUtils.validateEmail(_email))
-    {
-      AppUtils.showToast("Please input valid email address");
-      return;
-    }
-    this.setState({loading:true});      
-    Axios.post('register', {
-      fullname: _fullname,
-      username: _username,
-      email: _email,
-      password: _password,
-    })
-    .then((response) => {
-      console.log(response);
-      let res=response.data;
-      this.setState({loading:false});
-      if(res.status=='ok')
-      {        
-        Toast.show('Sign up successed.', {
-          duration: Toast.durations.LONG,
-          position: Toast.positions.BOTTOM,
-          backgroundColor:'#fff',
-          textColor:'#000',
-          shadow: true,
-          animation: true,
-          hideOnPress: true,
-          delay: 0,
-          onHidden: () => {
-            NavigationService.navigate("Login");
-          }
-        });      
-      } 
-      else if(res.status=='duplicated')
-      {
-        AppUtils.showToast(res.data);  
+
+    this.setState({loading:true});     
+    
+    firebase.auth().createUserWithEmailAndPassword(_email, _password)
+      .then((data)=>{
+
+        let mime = 'application/octet-stream';
+
+        let uri = this.state.avatarSource;
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+        let uploadBlob = null
+
+        const imageRef = firebase.storage().ref("data").child(Date.now().toString());
+
+        fs.readFile(uploadUri, 'base64')
+          .then((data) => {
+            return Blob.build(data, { type: `${mime};BASE64` })
+          })
+          .then((blob) => {
+            uploadBlob = blob
+            return imageRef.put(blob.blobPath, { contentType: mime })
+          })
+          .then(() => {
+            uploadBlob.close()
+            return imageRef.getDownloadURL();
+          })
+          .then((url)=>{
+            let ref = firebase.database().ref("users/"+data.user.uid);
+            ref.set({
+              fullname : _fullname,
+              username : _username,
+              email : _email,
+              avatar : url
+            })
+            this.setState({loading:false})
+            Toast.show('Sign up successed.', {
+              duration: Toast.durations.LONG,
+              position: Toast.positions.BOTTOM,
+              backgroundColor:'#fff',
+              textColor:'#000',
+              shadow: true,
+              animation: true,
+              hideOnPress: true,
+              delay: 0,
+              onHidden: () => {
+                NavigationService.navigate("Login");
+              }
+            });
+          })
+          .catch((error) => {
+            this.setState({loading:false})
+            AppUtils.showToast("Try again");
+        })
+      })
+      .catch((error) => {
+        this.setState({loading:false});   
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          AppUtils.showToast('The password is too weak.');
+        } else {
+          AppUtils.showToast(errorMessage);
+        }
+        console.log(error);
+      });
+    
+  }
+
+  selectAvatar = () =>{
+    const options = {
+      title: 'Select Avatar',
+      mediaType: "image",
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
       }
-    })
-    .catch( (error) => {   
-      console.log(error);
-      this.setState({loading:false}); 
-      AppUtils.showToast("Failed. Try again.");     
+      else if (response.error) {
+      }
+      else if (response.customButton) {
+      }
+      else {        
+        var path = response.uri;
+        this.setState({
+          avatarSource: path,
+        });
+      }
     });
   }
 
@@ -85,30 +139,38 @@ export default class Register extends Component {
             size="large"
             visible={this.state.loading}
           />
-          <View style={{flex:1, flexDirection:'column'}}>
+          <View style={{flex:0.5, flexDirection:'column'}}>
             <View style={{flex:1}}></View>
             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>                
               <Image source={require('../../assets/images/logo.png')} style={{width:'100%', height:'70%'}} resizeMode={"contain"} />
               <Text style={{color:'#717171', fontSize:22}} > Vibester </Text>
             </View>
           </View>
-          <View style={{flex:2, flexDirection:'column', paddingHorizontal:30}}>
+          <View style={{flex:2, flexDirection:'column', paddingHorizontal:30, marginTop:15}}>
+            <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
+              <TouchableOpacity activeOpacity={0.8} onPress={()=>{
+                this.selectAvatar();
+              }}>
+                <Image style={{height:100, width:100, borderRadius:50, borderWidth:1, borderColor:'#fff'}} 
+                source={this.state.avatarSource==null?require('../../assets/images/avatar.png'):{uri:this.state.avatarSource}} />
+              </TouchableOpacity>
+            </View>
             <View style={{flex:1,}}>
               <Item style={{borderColor:'#717171', marginTop:'auto'}}>
                 <Icon active type={"MaterialIcons"}  name='person'  style={{color:'#717171'}} />
-                <Input placeholder='Full name' style={{fontSize:17, color:'#fff'}} ref={c=>this._fullname=c} />
+                <Input placeholder='Full name' style={{fontSize:17, color:'#717171'}} ref={c=>this._fullname=c} />
               </Item>
             </View>
             <View style={{flex:1,}}>
               <Item style={{borderColor:'#717171', marginTop:'auto'}}>
                 <Icon active type={"MaterialIcons"}  name='person'  style={{color:'#717171'}} />
-                <Input placeholder='User name' style={{fontSize:17, color:'#fff'}} ref={c=>this._username=c} />
+                <Input placeholder='User name' style={{fontSize:17, color:'#717171'}} ref={c=>this._username=c} />
               </Item>
             </View>
             <View style={{flex:1,}}>
               <Item style={{borderColor:'#717171', marginTop:'auto'}}>
                 <Icon active type={"MaterialCommunityIcons"}  name='email'  style={{color:'#717171'}} />
-                <Input placeholder='Email' style={{fontSize:17, color:'#fff'}} ref={c=>this._email=c} />
+                <Input placeholder='Email' style={{fontSize:17, color:'#717171'}} ref={c=>this._email=c} />
               </Item>
             </View>
             <View style={{flex:1, }}>
@@ -136,7 +198,7 @@ export default class Register extends Component {
               </View>
             </View>
           </View>
-          <View style={{flex:1, justifyContent:'center', paddingHorizontal:30}}>
+          <View style={{flex:0.3, justifyContent:'center', paddingHorizontal:30}}>
             <View style={{flexDirection:'row', marginLeft:'auto',}}>
               <Text  style={{color:'#717171', fontSize:17, textAlignVertical:'center'}}>
                 Complete sign up 

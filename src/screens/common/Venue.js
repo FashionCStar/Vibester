@@ -4,6 +4,7 @@ import NavigationService from '../../NavigationService'
 import { Icon, Item, Input } from 'native-base';
 import FitImage from 'react-native-fit-image';
 import Menu, { MenuItem, MenuDivider, Position } from "react-native-enhanced-popup-menu";
+import firebase from 'react-native-firebase'
 
 const width = Dimensions.get("window").width
 
@@ -15,6 +16,8 @@ export default class Venue extends Component {
     this.state={
         like:false,
         showMenu:false,
+        data:{},
+        user:{}
     }
   }
   toggleMenu = () => {
@@ -22,7 +25,20 @@ export default class Venue extends Component {
         showMenu:!this.state.showMenu
     })
   }
+
+  componentDidMount(){      
+    let data = this.props.item;
+    this.setState({data:data});
+    firebase.database().ref("users/"+data.user).orderByKey().limitToFirst(1).once("value").then((snapshot)=>{
+        snapshot.forEach((item)=>{            
+            this.setState({user:item.val()});
+        })
+    })
+  }
+
   render() {
+
+
     return (
     <View style={{width:'100%', flexDirection:'column'}}>
         <View style={{flexDirection:'row', alignItems:'stretch', justifyContent:'space-between',paddingVertical:5}}>
@@ -31,7 +47,7 @@ export default class Venue extends Component {
             }}>
             <Image source={require('../../assets/images/temp/image1.jpg')} style={{width:36, height:36, borderRadius:18, borderWidth:2, borderColor:'#f5a44d',}}/>
             <View style={{flexDirection:'column', marginLeft:5,}}>
-                <Text style={{color:'#fff', fontSize:14}}>TRU Ctzn</Text>
+                <Text style={{color:'#fff', fontSize:14}}>{this.state.user.fullname}</Text>
                 <View style={{flexDirection:'row'}}>
                 <Icon type={"Ionicons"} name="ios-pin" style={{color:'#d98020',fontSize:15}} />
                 <Text style={{color:'#fff', fontSize:10, marginLeft:5}}>2km</Text>
@@ -55,7 +71,7 @@ export default class Venue extends Component {
             <Text style={{color:'#fff', fontSize:12, alignSelf:'flex-end', marginRight:10}}>12.8K users like this venue</Text>
             </View>
         </View>
-        <FitImage source = {require("../../assets/images/temp/image2.jpg")} style={{width:width,height:width*0.8}} />
+        <FitImage source = {{uri:this.state.data.imageurl}} style={{width:width,height:width*0.8}} />
         <View style={{width:'100%', paddingVertical:8,flexDirection:'column'}}>
             <View style={{width:'100%', flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingHorizontal:10}}>
             <Text style={{color:'#fff', fontSize:10}}>10pm - 2am</Text>
@@ -67,7 +83,7 @@ export default class Venue extends Component {
             </View>
             <View style={{width:'100%', paddingHorizontal:10, justifyContent:'space-between', alignItems:'center', flexDirection:'row' }}>
                 <Text style={{flex:1, color:'#fff', fontSize:11, flexWrap:'wrap',}} textBreakStrategy={"highQuality"} >
-                A one of a kind night! Hosted by DJ Colin Franklin and friends to buy your tickets, please visit our profile page and click on the link
+               {this.state.data.description}
                 </Text>
                 <TouchableOpacity ref={(c)=>this._menubtn=c} onPress={()=>{
                     this.toggleMenu();

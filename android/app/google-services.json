@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "707130523833",
+    "firebase_url": "https://rn-vibester.firebaseio.com",
+    "project_id": "rn-vibester",
+    "storage_bucket": "rn-vibester.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707130523833:android:b855fc199e7cdcd2369b68",
+        "android_client_info": {
+          "package_name": "com.vibester.fashionstar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707130523833-v7hv0kns1v99ojp623bd8hng813aob84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuBTuf37P9dKo64Zw582nnwV9SEkZ5Xfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707130523833-v7hv0kns1v99ojp623bd8hng813aob84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

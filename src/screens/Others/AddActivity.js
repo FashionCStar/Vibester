@@ -7,6 +7,18 @@ import { TextField } from 'react-native-material-textfield';
 import { Dropdown } from 'react-native-material-dropdown';
 import CheckBox from 'react-native-check-box'
 import ImagePicker from 'react-native-image-picker';
+import firebase from 'react-native-firebase'
+import AppUtils from '../../utils/AppUtlls';
+import RNFetchBlob from 'rn-fetch-blob'
+import Spinner from 'react-native-loading-spinner-overlay';
+import Toast from 'react-native-root-toast'; 
+
+
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
 
 export default class AddActivity extends Component { 
 
@@ -17,9 +29,74 @@ export default class AddActivity extends Component {
       working_hour:0,
       isChecked:false,
       avatarSource:null,
+      loading:false,
     }
   }
 
+  upload = () =>{
+    if(this._name.value() == "" || this._address.value() =="" || this.state.type == 0 || this.state.working_hour == 0 || this.state.avatarSource == null )
+    {
+      AppUtils.showToast("Please input information correctly.");
+      return;
+    }
+
+    this.setState({loading:true})
+
+    let mime = 'application/octet-stream';
+
+    let uri = this.state.avatarSource;
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+    let uploadBlob = null
+
+    const imageRef = firebase.storage().ref("data").child(Date.now().toString());
+
+    fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
+      })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob.blobPath, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        return imageRef.getDownloadURL();
+      })
+      .then((url)=>{
+        let ref = firebase.database().ref("activity").push();
+        ref.set({
+          name : this._name.value(),
+          address : this._address.value(),
+          type : this.state.type,
+          working_hour : this.state.working_hour,
+          description : this._description.value(),
+          isPublic : !this.state.isChecked,
+          admins:[1,2,3],
+          imageType : this.state.imageType,
+          imageurl:url,
+          user : firebase.auth().currentUser.uid
+        })
+        this.setState({loading:false})
+        Toast.show('Successfully uploaded.', {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+          backgroundColor:'#fff',
+          textColor:'#000',
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          onHidden: () => {
+            NavigationService.navigate("Home");
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({loading:false})
+        AppUtils.showToast("Try again");
+    })
+  }
     render() {
       let venue_type=[
         {
@@ -70,16 +147,20 @@ export default class AddActivity extends Component {
                 <Icon type={"AntDesign"} name="arrowleft" style={{color:'#fff', fontSize:20}}/>
               </TouchableOpacity> 
               <TouchableOpacity style={{marginLeft:'auto',marginRight:10}}>                
-              <Text  style={{color:'#f28500', fontSize:15,}}>
-                Upload 
-                </Text>
+              <Text  style={{color:'#f28500', fontSize:15,}} onPress = {
+              ()=>{
+                this.upload();
+              }
+              }>                
+              Upload 
+              </Text>
               </TouchableOpacity>           
             </View>
             <ScrollView style={{flex:1, marginHorizontal:30, marginTop:20, marginBottom:10, flexDirection:'column'}} showsVerticalScrollIndicator={false}>
 
 
               <View style={{width:'100%', aspectRatio:1, backgroundColor:'#111', alignItems:'center', justifyContent:'center'}}>
-                <Image source={this.state.avatarSource}  style={{width:'100%', height:'100%'}} />
+                <Image source={{uri:this.state.avatarSource}}   style={{width:'100%', height:'100%'}} />
                 <View style={{flexDirection:'column', position:'absolute', alignItems:'center'}}>
                   {this.state.avatarSource==null&&
                   <Icon type={"FontAwesome"} name="image" style={{color:'#222', fontSize:50,}} />}
@@ -215,45 +296,27 @@ export default class AddActivity extends Component {
       );
     }
 
-  SelectCamera = (type) => {
-    const options = {
-      title: 'Select Poster / Video',
-      mediaType: type,
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        let source = null;
-        if(response.type !=null)
-        {
-          source = { uri: response.uri };
+    SelectCamera = (type) => {
+      this.setState({imageType:type});
+      const options = {
+        title: 'Select Poster / Video',
+        mediaType: type,
+      };
+      ImagePicker.showImagePicker(options, (response) => {
+        if (response.didCancel) {
         }
-        else
-        {
-          // VideoThumbnail.get(this.path)
-          // .then((res) => {
-          //   console.log(res);
-          // })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
-          source = { uri: response.uri };
+        else if (response.error) {
         }
-
-        this.setState({
-          avatarSource: source,
-        });
-      }
-    });
-  }
-  }
+        else if (response.customButton) {
+        }
+        else {        
+          var path = response.uri;
+          this.setState({
+            avatarSource: path,
+          });
+        }
+      });
+    }
+    }
+    
   
