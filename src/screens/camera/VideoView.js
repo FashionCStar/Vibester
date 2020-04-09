@@ -19,7 +19,7 @@ import {getBottomSpace, isIphoneX} from 'react-native-iphone-x-helper';
 import Video from 'react-native-video';
 import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
 
-export default class VideoPreview extends Component {
+export default class VideoView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,9 +75,9 @@ export default class VideoPreview extends Component {
 
   onSeeking = currentTime => this.setState({currentTime});
   render() {
-    var uri = this.props.navigation.getParam('image_uri');
+    var uri = this.props.videourl;
     return (
-      <View style={styles.container}>
+      <View style={this.props.style}>
         <Video
           onEnd={this.onEnd}
           onLoad={this.onLoad}
@@ -93,63 +93,12 @@ export default class VideoPreview extends Component {
           style={styles.mediaPlayer}
           volume={1}
         />
-        <View
-          style={{
-            position: 'absolute',
-            width: '100%',
-            top: isIphoneX() ? getStatusBarHeight() + 10 : 10,
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity
-            style={{position: 'absolute', left: 10, top: 0}}
-            onPress={() => {
-              this.props.navigation.goBack();
-            }}>
-            <Icon
-              type={'MaterialIcons'}
-              name="close"
-              style={{color: '#fff', fontSize: 25}}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{position: 'absolute', right: 10, top: 0}}
-            onPress={() => {
-              NavigationService.navigate('CameraComplete', {
-                type: 0,
-                image_uri: uri,
-                image_type: 'video',
-              });
-            }}>
-            <Icon
-              type={'Ionicons'}
-              name="ios-send"
-              style={{color: '#fff', fontSize: 30}}
-            />
-          </TouchableOpacity>
-        </View>
-        {/* <MediaControls
-          duration={this.state.duration}
-          isLoading={this.state.isLoading}
-          mainColor="orange"
-          onFullScreen={this.onFullScreen}
-          onPaused={this.onPaused}
-          onReplay={this.onReplay}
-          onSeek={this.onSeek}
-          onSeeking={this.onSeeking}
-          playerState={this.state.playerState}
-          progress={this.state.currentTime}
-        /> */}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
   mediaPlayer: {
     position: 'absolute',
     top: 0,
